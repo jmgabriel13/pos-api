@@ -3,7 +3,7 @@ using Domain.Products;
 
 namespace Domain.Orders;
 
-// rich domain model
+// rich domain model, write model
 // aggregate, encapsulation
 public class Order
 {
@@ -15,10 +15,11 @@ public class Order
     public CustomerId CustomerId { get; private set; }
     public OrderStatus Status { get; private set; }
 
-    // expose a navigation property as readonly for ef core config
+    // expose a navigation property as readonly for ef core config,
+    // so no one can access the original _lineItems by reference
     public IReadOnlyList<LineItem> LineItems => _lineItems.ToList();
 
-    // factory method approach to create a new order instance
+    // static factory method approach to create a new order instance
     public static Order Create(Customer cutomer)
     {
         var order = new Order

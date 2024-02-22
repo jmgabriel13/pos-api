@@ -11,16 +11,25 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         // conversion of strongly type id to primitive type in the database
         builder.Property(p => p.Id).HasConversion(
-            productId => productId.Value,
-            value => new ProductId(value));
+            productId => productId.Value, // map to productId to the value
+            value => new ProductId(value)); // map back the value to a new productId 
 
+        // either own entity or value conversion, in this case we define sku as value conversion
         builder.Property(p => p.Sku).HasConversion(
-            sku => sku.Value,
-            value => Sku.Create(value)!);
+            sku => sku.Value, // map sku prop to sku value which is string
+            value => Sku.Create(value)!); // map back the value from db as sku object, with null forgiving operator
 
+        // seeding entity with owned value object properties
+        var id = new ProductId(Guid.Parse("6769EC6C-9926-4125-8873-67D670F7083C"));
+
+        // Money complex value object. in this case we defined this as own entity
         builder.OwnsOne(p => p.Price, priceBuilder =>
         {
-            priceBuilder.Property(m => m.Currency).HasMaxLength(3);
+            priceBuilder.Property(m => m.Amount)
+                .HasMaxLength(3);
+
+            priceBuilder.Property(m => m.Amount)
+                .HasColumnType("decimal(18,4)");
         });
     }
 }

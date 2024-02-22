@@ -12,8 +12,8 @@ internal sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
 
         // conversion of strongly type id to primitive type in the database
         builder.Property(o => o.Id).HasConversion(
-            order => order.Value,
-            value => new OrderId(value));
+            orderId => orderId.Value, // map to orderId to the value
+            value => new OrderId(value)); // map back the value to a new orderId 
 
         builder.HasOne<Customer>()
             .WithMany()
