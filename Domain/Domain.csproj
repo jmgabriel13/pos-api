@@ -11,10 +11,16 @@
     <None Remove="Orders\Order.cs~RF1a50d0c1.TMP" />
     <None Remove="Orders\OrderSummary.cs~RF1f84e3ec.TMP" />
     <None Remove="Products\Product.cs~RF19dd6f57.TMP" />
+    <None Remove="Repositories\IMemberRepository.cs~RF583e4187.TMP" />
+    <None Remove="Repositories\IOrderRepository.cs~RF583043cd.TMP" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Carts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
 </Project>

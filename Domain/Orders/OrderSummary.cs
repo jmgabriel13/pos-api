@@ -1,6 +1,6 @@
-﻿namespace Domain.Orders;
+﻿using Domain.Customers;
+
+namespace Domain.Orders;
 
 // read model
-internal class OrderSummary
-{
-}
+public record OrderSummary(Guid Id, CustomerId CustomerId, decimal TotalPrice);

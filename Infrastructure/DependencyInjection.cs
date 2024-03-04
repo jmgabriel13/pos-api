@@ -25,6 +25,7 @@ public static class DependencyInjection
 
         // standard way, without cache repository
         services.AddScoped<IMemberRepository, MemberRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
 
         return services;
     }

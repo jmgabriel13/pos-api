@@ -14,28 +14,28 @@ public sealed class MemberRepository : IMemberRepository
 
     public void Add(Member member)
     {
-        _context.Set<Member>().Add(member);
+        _context.Members.Add(member);
     }
     public void Update(Member member)
     {
-        _context.Set<Member>().Update(member);
+        _context.Members.Update(member);
     }
 
     public async Task<Member?> GetByIdAsync(MemberId id, CancellationToken cancellationToken = default)
     {
-        return await _context.Set<Member>()
+        return await _context.Members
             .FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
     }
 
     public async Task<Member?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return await _context.Set<Member>()
+        return await _context.Members
             .FirstOrDefaultAsync(m => m.Email == email, cancellationToken);
     }
 
     public async Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken = default)
     {
-        return !await _context.Set<Member>().AnyAsync(m => m.Email == email, cancellationToken);
+        return !await _context.Members.AnyAsync(m => m.Email == email, cancellationToken);
     }
 
 }
