@@ -1,4 +1,7 @@
-﻿using Infrastructure.Persistence;
+﻿using Application.Interfaces;
+using Domain.Repositories;
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +16,15 @@ public static class DependencyInjection
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
                 )
             );
+
+        services.AddScoped<IApplicationDbContext>(sp =>
+           sp.GetRequiredService<ApplicationDbContext>());
+
+        services.AddScoped<IUnitOfWork>(sp =>
+            sp.GetRequiredService<ApplicationDbContext>());
+
+        // standard way, without cache repository
+        services.AddScoped<IMemberRepository, MemberRepository>();
 
         return services;
     }

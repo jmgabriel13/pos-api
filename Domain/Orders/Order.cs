@@ -20,12 +20,12 @@ public class Order
     public IReadOnlyList<LineItem> LineItems => _lineItems.ToList();
 
     // static factory method approach to create a new order instance
-    public static Order Create(Customer cutomer)
+    public static Order Create(CustomerId customerId)
     {
         var order = new Order
         {
             Id = new OrderId(Guid.NewGuid()),
-            CustomerId = cutomer.Id,
+            CustomerId = customerId,
             Status = OrderStatus.Pending
         };
 

@@ -6,7 +6,7 @@ using Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
-public class ApplicationDbContext : DbContext, IApplicationDbContext
+public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
 {
 
     public ApplicationDbContext(DbContextOptions options) : base(options)
@@ -24,5 +24,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<LineItem> LineItems { get; set; }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return await base.SaveChangesAsync(cancellationToken);
+    }
 
 }

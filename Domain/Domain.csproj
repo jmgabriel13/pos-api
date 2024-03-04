@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Members\Member.cs~RF56fce40f.TMP" />
     <None Remove="Orders\Order.cs~RF1a50d0c1.TMP" />
     <None Remove="Orders\OrderSummary.cs~RF1f84e3ec.TMP" />
     <None Remove="Products\Product.cs~RF19dd6f57.TMP" />
