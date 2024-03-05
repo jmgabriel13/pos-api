@@ -1,17 +1,26 @@
 ﻿using Domain.Customers;
+using Domain.Events;
+using Domain.Primitives;
 using Domain.Products;
 
 namespace Domain.Orders;
 
 // rich domain model, write model
 // aggregate, encapsulation
-public class Order
+public sealed class Order : AggregateRoot<OrderId>
 {
     private readonly List<LineItem> _lineItems = new();
+
+    private Order(OrderId id, CustomerId customerId, OrderStatus status) : base(id)
+    {
+        CustomerId = customerId;
+        Status = status;
+    }
+
     private Order()
     {
     }
-    public OrderId Id { get; private set; }
+
     public CustomerId CustomerId { get; private set; }
     public decimal Total
     {
@@ -30,12 +39,9 @@ public class Order
     // static factory method approach to create a new order instance
     public static Order Create(CustomerId customerId)
     {
-        var order = new Order
-        {
-            Id = new OrderId(Guid.NewGuid()),
-            CustomerId = customerId,
-            Status = OrderStatus.Pending
-        };
+        var order = new Order(new OrderId(Guid.NewGuid()), customerId, OrderStatus.Pending);
+
+        order.RaiseDomainEvent(new OrderCreatedDomainEvent(Guid.NewGuid(), order.Id));
 
         return order;
     }

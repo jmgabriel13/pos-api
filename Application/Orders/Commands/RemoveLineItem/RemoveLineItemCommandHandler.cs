@@ -2,7 +2,7 @@
 using Domain.Repositories;
 using Domain.Shared;
 
-namespace Application.Orders.RemoveLineItem;
+namespace Application.Orders.Commands.RemoveLineItem;
 internal sealed class RemoveLineItemCommandHandler : ICommandHandler<RemoveLineItemCommand>
 {
     private readonly IOrderRepository _orderRepository;
@@ -16,7 +16,8 @@ internal sealed class RemoveLineItemCommandHandler : ICommandHandler<RemoveLineI
 
     public async Task<Result> Handle(RemoveLineItemCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByOrderLineItemAsync(request.orderId, request.LineItemId, cancellationToken);
+        var order = await _orderRepository
+            .GetByIdWithLineItemAsync(request.orderId, request.LineItemId, cancellationToken);
 
         if (order == null)
         {

@@ -14,6 +14,7 @@
     <None Remove="Products\Product.cs~RF19dd6f57.TMP" />
     <None Remove="Repositories\IMemberRepository.cs~RF583e4187.TMP" />
     <None Remove="Repositories\IOrderRepository.cs~RF583043cd.TMP" />
+    <None Remove="Repositories\IOrderSummaryRepository.cs~RF5ba62aa2.TMP" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,16 +2,18 @@
 using Domain.Customers;
 using Domain.Members;
 using Domain.Orders;
+using Domain.Primitives;
 using Domain.Products;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 public sealed class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
 {
-
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    private readonly IPublisher _publisher;
+    public ApplicationDbContext(DbContextOptions options, IPublisher publisher) : base(options)
     {
-
+        _publisher = publisher;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,7 +30,19 @@ public sealed class ApplicationDbContext : DbContext, IApplicationDbContext, IUn
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await base.SaveChangesAsync(cancellationToken);
+        var domainEvents = ChangeTracker.Entries<AggregateRoot<Guid>>()
+            .Select(e => e.Entity)
+            .Where(e => e.GetDomainEvents().Any())
+            .SelectMany(e => e.GetDomainEvents());
+
+        var result = await base.SaveChangesAsync(cancellationToken);
+
+        foreach (var domainEvent in domainEvents)
+        {
+            await _publisher.Publish(domainEvent, cancellationToken);
+        }
+
+        return result;
     }
 
 }

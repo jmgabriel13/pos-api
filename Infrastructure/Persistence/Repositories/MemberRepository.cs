@@ -21,15 +21,15 @@ public sealed class MemberRepository : IMemberRepository
         _context.Members.Update(member);
     }
 
-    public async Task<Member?> GetByIdAsync(MemberId id, CancellationToken cancellationToken = default)
+    public Task<Member?> GetByIdAsync(MemberId id, CancellationToken cancellationToken = default)
     {
-        return await _context.Members
+        return _context.Members
             .FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
     }
 
-    public async Task<Member?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
+    public Task<Member?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
-        return await _context.Members
+        return _context.Members
             .FirstOrDefaultAsync(m => m.Email == email, cancellationToken);
     }
 

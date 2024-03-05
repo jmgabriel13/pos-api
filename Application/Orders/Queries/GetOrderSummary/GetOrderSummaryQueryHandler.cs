@@ -3,19 +3,19 @@ using Domain.Orders;
 using Domain.Repositories;
 using Domain.Shared;
 
-namespace Application.Orders.GetOrderSummary;
+namespace Application.Orders.Queries.GetOrderSummary;
 internal sealed class GetOrderSummaryQueryHandler : IQueryHandler<GetOrderSummaryQuery, OrderSummary>
 {
-    private readonly IOrderRepository _orderRepository;
+    private readonly IOrderSummaryRepository _orderSummaryRepository;
 
-    public GetOrderSummaryQueryHandler(IOrderRepository orderRepository)
+    public GetOrderSummaryQueryHandler(IOrderSummaryRepository orderSummaryRepository)
     {
-        _orderRepository = orderRepository;
+        _orderSummaryRepository = orderSummaryRepository;
     }
 
     public async Task<Result<OrderSummary>> Handle(GetOrderSummaryQuery request, CancellationToken cancellationToken)
     {
-        var summary = await _orderRepository
+        var summary = await _orderSummaryRepository
             .GetSummaryByIdAsync(request.OrderId, cancellationToken);
 
         if (summary is null)

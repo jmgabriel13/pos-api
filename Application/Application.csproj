@@ -11,8 +11,9 @@
     <None Remove="Interfaces\IApplicationDbContext.cs~RF1f742df8.TMP" />
     <None Remove="Interfaces\IApplicationDbContext.cs~RF1f7f4766.TMP" />
     <None Remove="Interfaces\ICommand.cs~RF57f02139.TMP" />
-    <None Remove="Orders\Create\CreateOrderCommand.cs~RF57e35057.TMP" />
-    <None Remove="Orders\GetOrderSummary\GetOrderSummaryQuery.cs~RF5aefbe22.TMP" />
+    <None Remove="Orders\Commands\Create\CreateOrderCommand.cs~RF57e35057.TMP" />
+    <None Remove="Orders\Events\OrderCreatedDomainEventHandler.cs~RF5bb1a125.TMP" />
+    <None Remove="Orders\Queries\GetOrderSummary\GetOrderSummaryQuery.cs~RF5aefbe22.TMP" />
   </ItemGroup>
 
   <ItemGroup>
