@@ -13,6 +13,14 @@ public class Order
     }
     public OrderId Id { get; private set; }
     public CustomerId CustomerId { get; private set; }
+    public decimal Total
+    {
+        get
+        {
+            return _lineItems.Sum(item => item.Price.Amount);
+        }
+    }
+
     public OrderStatus Status { get; private set; }
 
     // expose a navigation property as readonly for ef core config,

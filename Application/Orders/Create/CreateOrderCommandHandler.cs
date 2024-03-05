@@ -22,7 +22,7 @@ internal sealed class CreateOrderCommandHandler : ICommandHandler<CreateOrderCom
         _orderRepository.Add(order);
 
         // this is a new order without line items thats why zero the total amount
-        _orderRepository.AddOrderSummaries(new OrderSummary(order.Id.Value, request.CustomerId, 0));
+        _orderRepository.AddOrderSummaries(new OrderSummary(order.Id, request.CustomerId, 0));
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

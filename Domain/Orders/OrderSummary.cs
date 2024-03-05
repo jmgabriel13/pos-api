@@ -3,4 +3,4 @@
 namespace Domain.Orders;
 
 // read model
-public record OrderSummary(Guid Id, CustomerId CustomerId, decimal TotalPrice);
+public record OrderSummary(OrderId Id, CustomerId CustomerId, decimal TotalPrice);

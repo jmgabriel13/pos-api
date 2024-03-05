@@ -6,7 +6,7 @@ using Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
-public class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
+public sealed class ApplicationDbContext : DbContext, IApplicationDbContext, IUnitOfWork
 {
 
     public ApplicationDbContext(DbContextOptions options) : base(options)

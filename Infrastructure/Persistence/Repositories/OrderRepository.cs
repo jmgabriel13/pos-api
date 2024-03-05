@@ -24,7 +24,15 @@ public sealed class OrderRepository : IOrderRepository
 
     public async Task<Order?> GetByIdAsync(OrderId id, CancellationToken cancellationToken = default)
     {
-        return await _context.Orders.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        return await _context.Orders
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+    }
+
+    public Task<OrderSummary?> GetSummaryByIdAsync(OrderId id, CancellationToken cancellationToken = default)
+    {
+        return _context.OrderSummaries
+            .AsNoTracking()
+            .FirstOrDefaultAsync(os => os.Id == id, cancellationToken);
     }
 
     public async Task<Order?> GetByOrderLineItemAsync(OrderId orderId, LineItemId lineItemId, CancellationToken cancellationToken = default)
@@ -36,4 +44,5 @@ public sealed class OrderRepository : IOrderRepository
 
         return order;
     }
+
 }

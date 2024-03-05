@@ -12,6 +12,7 @@
     <None Remove="Interfaces\IApplicationDbContext.cs~RF1f7f4766.TMP" />
     <None Remove="Interfaces\ICommand.cs~RF57f02139.TMP" />
     <None Remove="Orders\Create\CreateOrderCommand.cs~RF57e35057.TMP" />
+    <None Remove="Orders\GetOrderSummary\GetOrderSummaryQuery.cs~RF5aefbe22.TMP" />
   </ItemGroup>
 
   <ItemGroup>
