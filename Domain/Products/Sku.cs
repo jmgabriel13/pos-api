@@ -16,7 +16,7 @@ public record Sku
     {
         if (string.IsNullOrEmpty(value))
         {
-            return null;
+            return new Sku("");
         }
 
         if (value.Length != DefaultLength)
