@@ -24,6 +24,8 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
     }
 
     public TId Id { get; private init; }
+    public DateTime CreatedAt { get; private init; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; private init; }
 
     public static bool operator ==(Entity<TId>? first, Entity<TId>? second)
     {

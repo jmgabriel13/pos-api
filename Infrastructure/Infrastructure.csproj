@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Persistence\Configurations\CategoryCofiguration.cs~RF1d1c667.TMP" />
+    <None Remove="Persistence\Configurations\CategoryCofiguration.cs~RF2506f54.TMP" />
+    <None Remove="Persistence\Configurations\ProductConfiguration.cs~RF2569492.TMP" />
+    <None Remove="Persistence\Repositories\ProductRepository.cs~RF81c65607.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
   </ItemGroup>
 

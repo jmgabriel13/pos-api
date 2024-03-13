@@ -2,6 +2,7 @@
 using Domain.Events;
 using Domain.Primitives;
 using Domain.Products;
+using Domain.Repositories;
 
 namespace Domain.Orders;
 
@@ -65,8 +66,14 @@ public sealed class Order : AggregateRoot<OrderId>
         _lineItems.Add(lineItem);
     }
 
-    public void RemoveLineItem(LineItemId lineItemId)
+    public void RemoveLineItem(LineItemId lineItemId, IOrderRepository orderRepository)
     {
+        // to enforce that all orders has always atleast 1 item.
+        if (orderRepository.HasOneLineItem(this))
+        {
+            return;
+        }
+
         var lineItem = _lineItems.FirstOrDefault(li => li.Id == lineItemId);
 
         if (lineItem is null)
@@ -75,5 +82,8 @@ public sealed class Order : AggregateRoot<OrderId>
         }
 
         _lineItems.Remove(lineItem);
+
+        RaiseDomainEvent(new LineItemRemovedDomainEvent(Guid.NewGuid(), Id, lineItemId));
+
     }
 }

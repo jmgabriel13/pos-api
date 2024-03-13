@@ -7,21 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Categories\Create\CreateCategoryCommand.cs~RF18903d1.TMP" />
+    <None Remove="Categories\Create\CreateCategoryCommand.cs~RF1ccfe96.TMP" />
     <None Remove="DependencyInjection.cs~RF5861a354.TMP" />
     <None Remove="Interfaces\IApplicationDbContext.cs~RF1f742df8.TMP" />
     <None Remove="Interfaces\IApplicationDbContext.cs~RF1f7f4766.TMP" />
     <None Remove="Interfaces\ICommand.cs~RF57f02139.TMP" />
     <None Remove="Orders\Commands\Create\CreateOrderCommand.cs~RF57e35057.TMP" />
     <None Remove="Orders\Events\OrderCreatedDomainEventHandler.cs~RF5bb1a125.TMP" />
-    <None Remove="Orders\Queries\GetOrderSummary\GetOrderSummaryQuery.cs~RF5aefbe22.TMP" />
+    <None Remove="Products\Create\CreateProductCommand.cs~RF81b6eebb.TMP" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Rebus" Version="8.2.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Orders\Queries\" />
   </ItemGroup>
 
 </Project>

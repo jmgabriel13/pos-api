@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Categories;
 using Domain.Customers;
 using Domain.Members;
 using Domain.Orders;
@@ -24,9 +25,9 @@ public sealed class ApplicationDbContext : DbContext, IApplicationDbContext, IUn
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Member> Members { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<OrderSummary> OrderSummaries { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<LineItem> LineItems { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

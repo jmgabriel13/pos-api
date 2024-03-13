@@ -1,5 +1,6 @@
 ﻿using Domain.Products;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Persistence.Configurations;
@@ -31,5 +32,40 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
             priceBuilder.Property(m => m.Amount)
                 .HasColumnType("decimal(18,4)");
         });
+
+        // The HasConversion has the value stored as a delimited string in the db,
+        // splits it to the List when you are using it and then joins it back again when saving
+        builder.Property(p => p.Categories)
+            .HasConversion(
+                from => string.Join("|", from),
+                to => string.IsNullOrEmpty(to) ? new List<string>() : to.Split('|', StringSplitOptions.RemoveEmptyEntries).ToList(),
+                new ValueComparer<List<string>>(
+                    (c1, c2) => c1.SequenceEqual(c2),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToList()
+            )
+        );
+
+        builder.Property(p => p.Sizes)
+            .HasConversion(
+                from => string.Join("|", from),
+                to => string.IsNullOrEmpty(to) ? new List<string>() : to.Split('|', StringSplitOptions.RemoveEmptyEntries).ToList(),
+                new ValueComparer<List<string>>(
+                    (c1, c2) => c1.SequenceEqual(c2),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToList()
+            )
+        );
+
+        builder.Property(p => p.SideDishes)
+           .HasConversion(
+               from => string.Join("|", from),
+               to => string.IsNullOrEmpty(to) ? new List<string>() : to.Split('|', StringSplitOptions.RemoveEmptyEntries).ToList(),
+               new ValueComparer<List<string>>(
+                   (c1, c2) => c1.SequenceEqual(c2),
+                   c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                   c => c.ToList()
+           )
+       );
     }
 }

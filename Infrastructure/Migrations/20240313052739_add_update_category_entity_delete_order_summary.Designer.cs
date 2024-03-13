@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313052739_add_update_category_entity_delete_order_summary")]
+    partial class add_update_category_entity_delete_order_summary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,10 +37,15 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Categories");
                 });
@@ -129,10 +136,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Categories")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -144,9 +147,8 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SideDishes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Sizes")
                         .IsRequired()
@@ -164,7 +166,16 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Domain.Categories.Category", b =>
+                {
+                    b.HasOne("Domain.Products.Product", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("Domain.Orders.LineItem", b =>
@@ -217,6 +228,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Products.Product", b =>
                 {
+                    b.HasOne("Domain.Products.Product", null)
+                        .WithMany("SideDishes")
+                        .HasForeignKey("ProductId");
+
                     b.OwnsOne("Domain.Products.Money", "Price", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
@@ -245,6 +260,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Orders.Order", b =>
                 {
                     b.Navigation("LineItems");
+                });
+
+            modelBuilder.Entity("Domain.Products.Product", b =>
+                {
+                    b.Navigation("Categories");
+
+                    b.Navigation("SideDishes");
                 });
 #pragma warning restore 612, 618
         }

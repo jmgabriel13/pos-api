@@ -26,7 +26,8 @@ public static class DependencyInjection
         // standard way, without cache repository
         services.AddScoped<IMemberRepository, MemberRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IOrderSummaryRepository, OrderSummaryRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         return services;
     }

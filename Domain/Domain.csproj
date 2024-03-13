@@ -7,18 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Categories\Category.cs~RF1722979.TMP" />
     <None Remove="Members\Member.cs~RF56fce40f.TMP" />
     <None Remove="Orders\Order.cs~RF1a50d0c1.TMP" />
+    <None Remove="Orders\Order.cs~RF80d9f8d0.TMP" />
+    <None Remove="Orders\OrderSummary.cs~RF1de7bd2.TMP" />
     <None Remove="Orders\OrderSummary.cs~RF1f84e3ec.TMP" />
     <None Remove="Orders\OrderSummary.cs~RF5b065f3a.TMP" />
+    <None Remove="Products\Categories.cs~RF818dfa6a.TMP" />
     <None Remove="Products\Product.cs~RF19dd6f57.TMP" />
+    <None Remove="Products\Product.cs~RF8160e9cb.TMP" />
+    <None Remove="Repositories\ICategoryRepository.cs~RF175bd9c.TMP" />
     <None Remove="Repositories\IMemberRepository.cs~RF583e4187.TMP" />
     <None Remove="Repositories\IOrderRepository.cs~RF583043cd.TMP" />
     <None Remove="Repositories\IOrderSummaryRepository.cs~RF5ba62aa2.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Carts\" />
+    <None Remove="Repositories\IProductRepository.cs~RF81b29bbc.TMP" />
   </ItemGroup>
 
   <ItemGroup>

@@ -33,4 +33,8 @@ public sealed class OrderRepository : IOrderRepository
         return order;
     }
 
+    public bool HasOneLineItem(Order order)
+    {
+        return _context.Orders.Count(o => o.Id == order.Id) == 1;
+    }
 }
